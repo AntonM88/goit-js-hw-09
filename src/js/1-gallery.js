@@ -71,21 +71,25 @@ const images = [
 
 const galleryEL = document.querySelector('.gallery');
 
-function imgTamplate(images) {
-  return `<a class="gallery-link" href="${images.original}">
-        <img class="gallery-image"
-          src="${images.preview}"
-          alt="${images.description}"
-        />
-      </a>`;
-}
-
-function imagesTemplate(images) {
-  return images.map(imgTamplate).join('');
-}
-
 const markup = imagesTemplate(images);
 
 galleryEL.innerHTML = markup;
 
-const lightbox = new SimpleLightbox('.gallery a', {});
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
+function imgTamplate(obj) {
+  return `<li class="gallery-item">
+  <a class="gallery-link" href="${obj.original}">
+        <img class="gallery-image"
+          src="${obj.preview}"
+          alt="${obj.description}"/>
+    </a>
+</li>`;
+}
+
+function imagesTemplate(arr) {
+  return arr.map(imgTamplate).join('');
+}
